@@ -16,8 +16,16 @@
       </div>
     </div>
     <div class="item-revisions">
-      <div @click="selectRevision(revision)" v-for="(revision, ind) of item.revisions" :key="ind" class="item-revisions-revision">
-        <span>{{ revision.name }}</span>
+      <div v-for="(revision, ind) of item.revisions" :key="ind" class="item-revisions-revision">
+        <span @click="selectRevision(revision)" class="item-revisions-revision-name">{{ revision.name }}</span>
+        <div class="item-revisions-revision-controls">
+          <div @click="downloadExcel(`${revision.name}`, revision)" class="item-revisions-revision-controls-control">
+            <font-awesome-icon :icon="['fas', 'file-excel']" class="item-revisions-revision-controls-control-icon"/>
+          </div>
+          <div @click="downloadJSON(`${revision.name}`, revision)" class="item-revisions-revision-controls-control">
+            <font-awesome-icon :icon="['fab', 'js']" class="item-revisions-revision-controls-control-icon"/>
+          </div>
+        </div>
       </div>
     </div>
     <Revision v-if="selectedRevision" @close="clearSelectedRevision" />
@@ -25,6 +33,7 @@
 </template>
 
 <script>
+import DownloadMixin from '@/mixins/DownloadMixin.vue';
 import Revision from '@/components/Revision.vue';
 import { mapState } from 'vuex';
 
@@ -77,7 +86,8 @@ export default {
   },
   components: {
     Revision
-  }
+  },
+  mixins: [DownloadMixin]
 }
 </script>
 
@@ -159,15 +169,47 @@ export default {
       height: 200px;
       border: 15px solid #fff;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       background-color: #00b894;
       font-weight: bold;
       color: #fff;
 
-      &:hover {
-        background-color: #04c7a1;
-        cursor: pointer;
+      .item-revisions-revision-name {
+        flex: 1;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+          background-color: #04c7a1;
+          cursor: pointer;
+        }
+      }
+
+      .item-revisions-revision-controls {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        border-top: 1px solid #01a887;
+
+        .item-revisions-revision-controls-control {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: #fff;
+          padding: 15px;
+          width: 25%;
+          font-size: 18px;
+
+          &:hover {
+            background-color: #04c7a1;
+            cursor: pointer;
+          }
+        }
       }
     }
   }
