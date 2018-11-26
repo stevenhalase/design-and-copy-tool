@@ -5,8 +5,7 @@ export default {
   name: 'download-mixin',
   data() {
     return {
-      downloadEl: null,
-      json2excel
+      downloadEl: null
     };
   },
   mounted() {

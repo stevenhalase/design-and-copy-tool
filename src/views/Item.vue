@@ -14,6 +14,7 @@
         <div class="item-header-title-prefix">/</div>
         <div class="item-header-title-current">{{ item.name }}</div>
       </div>
+      <span>Item</span>
     </div>
     <div class="item-revisions">
       <div v-for="(revision, ind) of item.revisions" :key="ind" class="item-revisions-revision">

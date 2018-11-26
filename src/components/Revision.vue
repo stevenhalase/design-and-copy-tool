@@ -18,6 +18,7 @@
           <div class="revision-header-title-prefix">/</div>
           <div class="revision-header-title-current">{{ revision.name }}</div>
         </div>
+        <span class="revision-header-level">Revision</span>
         <div @click="close" class="revision-close">
           <div class="revision-close-button">
             <font-awesome-icon :icon="['fas', 'times']" class="revision-close-button-icon"/>
@@ -29,6 +30,9 @@
         <RevisionAdditional @close="close" :revision="revision" />
       </div>
     </div>
+    <div class="rick-roll">
+      <img v-if="!seenRR" src="https://media3.giphy.com/media/LrmU6jXIjwziE/giphy.gif?cid=3640f6095bfb4b3334504464368f3f86" />
+    </div>
   </div>
 </template>
 
@@ -39,6 +43,11 @@ import { mapState } from 'vuex';
 
 export default {
   name: 'revision',
+  data() {
+    return {
+      seenRR: true
+    };
+  },
   computed: {
     ...mapState({
       team: state => state.team,
@@ -46,6 +55,19 @@ export default {
       item: state => state.item,
       revision: state => state.revision
     })
+  },
+  mounted() {
+    const seenRR = JSON.parse(localStorage.getItem('dact-seenRR'));
+    if (!seenRR) {
+      this.seenRR = false;
+    }
+
+    setTimeout(() => {
+      if (this.seenRR === false) {
+        this.seenRR = true;
+        localStorage.setItem('dact-seenRR', JSON.stringify(true));
+      }
+    }, 10000);
   },
   methods: {
     close() {
@@ -73,6 +95,14 @@ export default {
   align-items: center;
   padding: 50px;
 
+  .rick-roll {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 100000;
+  }
+
   .revision-container {
     width: 100%;
     height: 100%;
@@ -93,6 +123,10 @@ export default {
       font-weight: bold;
       padding: 15px;
       background-color: #fff;
+
+      .revision-header-level {
+        margin-right: 50px;
+      }
 
       .revision-header-back {
         display: flex;

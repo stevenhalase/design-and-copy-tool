@@ -12,6 +12,7 @@
         <div class="project-header-title-prefix">/</div>
         <div class="project-header-title-current">{{ project.name }}</div>
       </div>
+      <span>Project</span>
     </div>
     <div class="project-items">
       <div @click="goToItem(item)" v-for="(item, ind) of project.items" :key="ind" class="project-items-item">

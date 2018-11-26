@@ -4,6 +4,7 @@
       <div class="team-dashboard-header-title">
         <div class="team-dashboard-header-title-current">{{ team.name }}</div>
       </div>
+      <span>Dashboard</span>
     </div>
     <div class="team-dashboard-projects">
       <div @click="goToProject(project)" v-for="(project, ind) of projects" :key="ind" class="team-dashboard-project">
