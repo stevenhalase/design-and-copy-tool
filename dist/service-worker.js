@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.3d7fd5a49e5ec0836d41b3bda5ee262c.js"
+  "/precache-manifest.c4076ffc14b9f4cf08cb32ed8403c3b3.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "design-and-copy-tool"});
